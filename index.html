@@ -144,7 +144,7 @@ if(!(b.path.isFunctionDeclaration()||b.path.isVariableDeclarator()&&b.path.get('
 let n=0;for(const r of b.referencePaths){const q=r.parentPath;if(q.isCallExpression()&&q.node.callee===r.node&&q.node.arguments.length>=1&&q.node.arguments.length<=3&&q.node.arguments.every(a=>lit(a)!==undefined))n++}
 if(n>=3&&(!best||n>best.n))best={name,n,b}}
 if(!best)return 0;done.add(best.name);
-const top=pp.node.body,decl=new MapU;
+const top=pp.node.body,decl=new Map;
 top.forEach((s,i)=>{for(const k of Object.keys(t.getBindingIdentifiers(s)))decl.set(k,i)});
 if(!decl.has(best.name))return 0;
 const need=new Set([decl.get(best.name)]);let g=1;
