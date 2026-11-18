@@ -219,7 +219,7 @@ force.add(on);force.add(d.property.argument.name);c++}});return c}
 
 function unused(ast,force,keep){fresh();let c=0;tr(ast,{
 VariableDeclarator(p){const{id,init}=p.node;if(!t.isIdentifier(id)||!pure(init))return;const b=p.scope.getBinding(id.name);
-if(!b||b.referenced||b.constantViolations.length)return;if(p.scope.path.isProgram()&&keep&&!force.has(id.name))return;p.remove();c++},
+if(!b||b.referenced||b.constantViolations.length)return;if(p.parentPath.key==='left'&&p.parentPath.parentPath.isForXStatement())return;if(p.scope.path.isProgram()&&keep&&!force.has(id.name))return;p.remove();c++},
 FunctionDeclaration(p){if(!p.node.id)return;const b=p.scope.parent&&p.scope.parent.getBinding(p.node.id.name);
 if(!b||b.referenced||b.constantViolations.length||p.parentPath.isProgram()&&keep)return;p.remove();c++}});return c}
 
@@ -255,7 +255,7 @@ busy=true;msg('');$('app').classList.add('run');$('run').textContent='Working…
 const t0=performance.now();
 try{const r=await unravel(src,{ren:$('ren').checked,keep:$('keep').checked},paint);
 $('out').value=r.code;$('s-t').textContent=Math.round(performance.now()-t0)+' ms';$('s-i').textContent=kb(src.length);$('s-o').textContent=kb(r.code.length);paint(r.S)}
-catch(e){msg('Parse error: '+e.message)}
+catch(e){msg('Error: '+e.message);console.error(e)}
 $('app').classList.remove('run');$('run').textContent='Deobfuscate ↵';busy=false}
 $('run').onclick=go;
 $('sample').onclick=()=>{$('in').value=SAMPLE;go()};
